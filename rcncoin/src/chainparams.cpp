@@ -116,7 +116,7 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_MWEB].nTimeoutHeight = 2427264; // 364 days later
 
         consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000000000");
-        consensus.defaultAssumeValid = uint256S("0x62e2e3d21343a00994d38a63524867507dbeee6850e8fbf02e9c47a3ccf82f24"); // 2186382
+        consensus.defaultAssumeValid = uint256S("0x0"); // 2186382
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -129,7 +129,7 @@ public:
         pchMessageStart[3] = 0x80;
         nDefaultPort = 9666;
         nPruneAfterHeight = 100000;
-        m_assumed_blockchain_size = 40;
+        m_assumed_blockchain_size = 4;
         m_assumed_chain_state_size = 2;
 
         genesis = CreateGenesisBlock(1667250334, 1315784, 0x1e0ffff0, 1, 50 * COIN);
@@ -148,12 +148,12 @@ public:
         //vSeeds.emplace_back("dnsseed.rcncoinpool.org");
         //vSeeds.emplace_back("dnsseed.koin-project.com");
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,48);
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,60);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
         base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,50);
-        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,176);
-        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x88, 0xB2, 0x1E};
-        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x88, 0xAD, 0xE4};
+        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,35);
+        base58Prefixes[EXT_PUBLIC_KEY] = {0xff, 0x88, 0xB2, 0x1E};
+        base58Prefixes[EXT_SECRET_KEY] = {0xff, 0x88, 0xAD, 0xE4};
 
         bech32_hrp = "ltc";
         mweb_hrp = "ltcmweb";

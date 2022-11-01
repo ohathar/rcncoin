@@ -3,6 +3,11 @@ version: '3'
 networks:
   build-net:
     name: build-net
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.24.0.0/24"
 
 services:
   rcncoin-box:
@@ -10,6 +15,7 @@ services:
     restart: unless-stopped
     networks:
       - build-net
+    entrypoint: /entrypoint.sh
     #volumes:
     #  - ./cnccoin:/cnccoin
     ports:

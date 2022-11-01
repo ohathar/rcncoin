@@ -43,7 +43,11 @@ RUN mkdir -p /home/rcncoin/.rcncoin && \
     chown -R rcncoin:rcncoin /home/rcncoin
 USER rcncoin
 COPY rcncoin.conf /home/rcncoin/.rcncoin/rcncoin.conf
+COPY entrypoint.sh /entrypoint.sh
+#CMD ["tail", "-F", "/dev/null"]
+
+#RUN rcncoind -daemon
 
 #CMD ["tail", "-F", "/dev/null"]
 
-CMD ["rcncoind", "--printtoconsole"]
+#CMD ["rcncoind", "--printtoconsole"]
