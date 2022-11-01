@@ -1,0 +1,17 @@
+version: '3'
+
+networks:
+  build-net:
+    name: build-net
+
+services:
+  rcncoin-box:
+    build: .
+    restart: unless-stopped
+    networks:
+      - build-net
+    #volumes:
+    #  - ./cnccoin:/cnccoin
+    ports:
+      - "9666:9666"
+      - "9665:9665"
