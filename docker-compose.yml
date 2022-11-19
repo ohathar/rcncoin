@@ -9,15 +9,71 @@ networks:
       config:
         - subnet: "172.24.0.0/24"
 
+volumes:
+  rcncoin-data:
+
 services:
   rcncoin-box:
     build: .
     restart: unless-stopped
     networks:
-      - build-net
+      build-net:
+        ipv4_address: 172.24.0.2
+          
     entrypoint: /entrypoint.sh
-    #volumes:
-    #  - ./cnccoin:/cnccoin
+    volumes:
+      - rcncoin-data:/home/rcncoin/.rcncoin
     ports:
       - "9666:9666"
       - "9665:9665"
+  #db:
+  #  image: mariadb:latest
+  #  networks:
+  #    build-net:
+  #      ipv4_address: 172.24.0.3
+  #  environment:
+  #    - MARIADB_ROOT_PASSWORD=password
+  #    - MARIADB_USER=explorer
+  #    - MARIADB_PASSWORD=explorer
+  #    - MARIADB_DATABASE=explorer
+  #explorer:
+  #  build: ./explorer
+  #  networks:
+  #    build-net:
+  #      ipv4_address: 172.24.0.4
+  #  restart: unless-stopped
+  #  environment:
+  #    - BTC_RPC_USER=rcncoin
+  #    - BTC_RPC_PASS=rcncoinpassword
+  #    - BTC_RPC_HOST=rcncoin-box
+  #    - BTC_RPC_PORT=9665
+  #  volumes:
+  #    #- rcncoin-data:/home/rcncoin/.rcncoin
+  #    - ./explorer/btcxplr:/app
+  #  entrypoint: /entrypoint.sh
+  #  ports:
+  #    - 3000:3000
+  #pg-db:
+  #  image: postgres:latest
+  #  networks:
+  #    build-net:
+  #      ipv4_address: 172.24.0.5
+  #  restart: unless-stopped
+  #  environment:
+  #    - POSTGRES_PASSWORD=explorer
+  #    - POSTGRES_USER=explorer
+  #    - POSTGRES_DB=db
+
+  #crypto-explorer:
+  #  build: ./explorer.abe_fork
+  #  networks:
+  #    build-net:
+  #      ipv4_address: 172.24.0.6
+  #  restart: unless-stopped
+  #  volumes:
+  #    - rcncoin-data:/home/rcncoin/.rcncoin
+  #    - ./explorer.abe_fork/CryptocurrencyExplorer:/app
+  #  #entrypoint: /entrypoint.sh 
+  #  entrypoint: gunicorn --reload --bind="0.0.0.0:3001" -k gevent app:application
+  #  ports:
+  #    - 3001:3001

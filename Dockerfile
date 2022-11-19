@@ -8,8 +8,9 @@ RUN apt update && \
         libsqlite3-dev libminiupnpc-dev libzmq3-dev libfmt-dev 
 
 ## uncomment for QT gui build
-#RUN apt-get install -y qttools5-dev-tools libprotobuf-dev protobuf-compiler libqrencode-dev \
-#        libminiupnpc-dev libzmq3-dev libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev
+RUN apt update && \
+    apt-get install -y qttools5-dev-tools libprotobuf-dev protobuf-compiler libqrencode-dev \
+        libminiupnpc-dev libzmq3-dev libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev
 
 #BerkleyDB for wallet support
 RUN apt-get install -y software-properties-common && \
@@ -31,7 +32,7 @@ COPY ./rcncoin /rcncoin
 WORKDIR /rcncoin
 
 RUN ./autogen.sh && \
-    ./configure --disable-test --disable-bench --disable-gui
+    ./configure --disable-test --disable-bench
 ## for static build but depends currently broken
 #RUN CONFIG_SITE=$PWD/depends/x86_64-pc-linux-gnu/share/config.site ./configure ./configure --disable-tests --disable-bench
 RUN make -j4

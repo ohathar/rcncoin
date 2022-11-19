@@ -1,4 +1,4 @@
 #!/bin/bash
 
-rcncoind -daemon
+rcncoind -daemon -reindex
 tail -F /dev/null
